@@ -14,7 +14,7 @@ import ReaderSidebarTagsListItem from './list-item';
 export class ReaderSidebarTagsList extends Component {
 
 	static propTypes = {
-		tags: React.PropTypes.array,
+		followedTags: React.PropTypes.array,
 		onUnfollow: React.PropTypes.func.isRequired,
 		path: React.PropTypes.string.isRequired,
 		currentTag: React.PropTypes.string,
@@ -26,8 +26,8 @@ export class ReaderSidebarTagsList extends Component {
 	}
 
 	renderItems = () => {
-		const { path, onUnfollow, currentTag, tags } = this.props;
-		return map( tags, function( tag ) {
+		const { path, onUnfollow, currentTag, followedTags } = this.props;
+		return map( followedTags, function( tag ) {
 			return (
 				<ReaderSidebarTagsListItem
 					key={ tag.id }
@@ -40,8 +40,8 @@ export class ReaderSidebarTagsList extends Component {
 	}
 
 	render() {
-		const { tags, translate } = this.props;
-		if ( ! tags || tags.length === 0 ) {
+		const { followedTags, translate } = this.props;
+		if ( ! followedTags || followedTags.length === 0 ) {
 			return (
 				<li key="empty" className="sidebar__menu-empty">{ translate( 'Find relevant posts by adding a tag.' ) }</li>
 			);

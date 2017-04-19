@@ -75,7 +75,7 @@ class SiteStream extends React.Component {
 	}
 }
 
-export default needs(
-	readerSite,
-	readerFeed,
-)( localize( SiteStream ) );
+export default needs( [
+	readerSite(),
+	readerFeed(),
+] )( localize( SiteStream ) );
