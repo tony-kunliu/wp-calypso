@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import classnames from 'classnames';
-import { trim, isEmpty, get } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import { localize } from 'i18n-calypso';
 
 /**
@@ -13,7 +13,12 @@ import ReaderAvatar from 'blocks/reader-avatar';
 import FollowButton from 'reader/follow-button';
 import { getStreamUrl } from 'reader/route';
 import EmailSettings from './email-settings';
-import { getSiteName, getSiteUrl } from 'reader/get-helpers';
+import {
+	getSiteName,
+	getSiteUrl,
+	getSiteDescription,
+	getSiteAuthorName
+} from 'reader/get-helpers';
 
 function ReaderSubscriptionListItem( {
 	url,
@@ -24,14 +29,14 @@ function ReaderSubscriptionListItem( {
 	className = '',
 	translate,
 	followSource,
+	isEmailBlocked,
 } ) {
 	const siteTitle = getSiteName( { feed, site } );
 	const siteAuthor = site && site.owner;
-	const siteExcerpt = ( site && site.description ) || ( feed && feed.description );
+	const siteExcerpt = getSiteDescription( { feed, site } );
 	// prefer a users name property
 	// if that doesn't exist settle for combining first and last name
-	const authorName = siteAuthor && ( siteAuthor.name ||
-		trim( `${ siteAuthor.first_name || '' } ${ siteAuthor.last_name || '' }` ) );
+	const authorName = getSiteAuthorName( site );
 	const siteIcon = get( site, 'icon.img' );
 	const feedIcon = get( feed, 'image' );
 	const streamUrl = getStreamUrl( feedId, siteId );
@@ -69,7 +74,7 @@ function ReaderSubscriptionListItem( {
 			</div>
 			<div className="reader-subscription-list-item__options">
 				<FollowButton siteUrl={ siteUrl } followSource={ followSource } />
-				{ isFollowing && <EmailSettings /> }
+				{ isFollowing && ! isEmailBlocked && <EmailSettings siteId={ siteId } /> }
 			</div>
 		</div>
 	);

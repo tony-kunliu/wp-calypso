@@ -7,13 +7,12 @@ import { pick } from 'lodash';
 /**
  * Internal dependencies
  */
-import Button from 'components/button';
 import Card from 'components/card';
 import ExternalLink from 'components/external-link';
 import FormFieldset from 'components/forms/form-fieldset';
-import FormSettingExplanation from 'components/forms/form-setting-explanation';
 import FormToggle from 'components/forms/form-toggle/compact';
 import SectionHeader from 'components/section-header';
+import Notice from 'components/notice';
 import WrapSettingsForm from './wrap-settings-form';
 
 const Miscellaneous = ( {
@@ -28,20 +27,15 @@ const Miscellaneous = ( {
 		wp_cache_not_logged_in,
 		wp_supercache_304,
 	},
-	handleToggle,
+	handleAutosavingToggle,
 	isRequesting,
+	isSaving,
 	translate,
 } ) => {
 	return (
 		<div>
-			<SectionHeader label={ translate( 'Miscellaneous' ) }>
-				<Button
-					compact
-					primary
-					disabled={ isRequesting }
-					type="submit">
-					{ translate( 'Save Settings' ) }
-				</Button>
+			<SectionHeader
+				label={ translate( 'Miscellaneous' ) }>
 			</SectionHeader>
 			<Card>
 				<form>
@@ -59,8 +53,8 @@ const Miscellaneous = ( {
 						{ ! wp_cache_compression_disabled &&
 						<FormToggle
 							checked={ !! cache_compression }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'cache_compression' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'cache_compression' ) }>
 							<span>
 								{ translate(
 									'Compress pages so they’re served more quickly to visitors. {{em}}(Recommended{{/em}})',
@@ -74,8 +68,8 @@ const Miscellaneous = ( {
 
 						<FormToggle
 							checked={ !! wp_cache_not_logged_in }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'wp_cache_not_logged_in' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'wp_cache_not_logged_in' ) }>
 							<span>
 								{ translate(
 									'Don’t cache pages for known users. {{em}}(Recommended){{/em}}',
@@ -88,8 +82,8 @@ const Miscellaneous = ( {
 
 						<FormToggle
 							checked={ !! cache_rebuild_files }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'cache_rebuild_files' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'cache_rebuild_files' ) }>
 							<span>
 								{ translate(
 									'Cache rebuild. Serve a supercache file to anonymous users while a new ' +
@@ -103,8 +97,8 @@ const Miscellaneous = ( {
 
 						<FormToggle
 							checked={ !! wp_supercache_304 }
-							disabled={ isRequesting || ( '1' === super_cache_enabled ) }
-							onChange={ handleToggle( 'wp_supercache_304' ) }>
+							disabled={ isRequesting || isSaving || ( '1' === super_cache_enabled ) }
+							onChange={ handleAutosavingToggle( 'wp_supercache_304' ) }>
 							<span>
 								{ translate(
 									'304 Not Modified browser caching. Indicate when a page has not been ' +
@@ -115,30 +109,28 @@ const Miscellaneous = ( {
 								) }
 							</span>
 							{ '1' === super_cache_enabled &&
-								<FormSettingExplanation>
-									{ translate(
-										'{{strong}}Warning! 304 browser caching is only supported when mod_rewrite caching ' +
-										'is not used.{{/strong}}',
-										{
-											components: { strong: <strong /> }
-										}
-									) }
-								</FormSettingExplanation>
+								<Notice className="wp-super-cache__miscellaneous-304-notice"
+										isCompact={ true }
+										status="is-error"
+										text={ translate(
+									'304 browser caching is only supported when mod_rewrite caching ' +
+									'is not used.' ) }
+								/>
 							}
 							{ '1' !== super_cache_enabled &&
-								<FormSettingExplanation>
-									{ translate(
-										'304 support is disabled by default because some hosts have had problems with the ' +
-										'headers used in the past.'
-									) }
-								</FormSettingExplanation>
+								<Notice className="wp-super-cache__miscellaneous-304-notice"
+										isCompact={ true }
+										text={ translate(
+									'304 support is disabled by default because some hosts have had problems with the ' +
+									'headers used in the past.' ) }
+								/>
 							}
 						</FormToggle>
 
 						<FormToggle
 							checked={ !! wp_cache_no_cache_for_get }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'wp_cache_no_cache_for_get' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'wp_cache_no_cache_for_get' ) }>
 							<span>
 								{ translate( 'Don’t cache pages with GET parameters. (?x=y at the end of a url)' ) }
 							</span>
@@ -146,8 +138,8 @@ const Miscellaneous = ( {
 
 						<FormToggle
 							checked={ !! wp_cache_make_known_anon }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'wp_cache_make_known_anon' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'wp_cache_make_known_anon' ) }>
 							<span>
 								{ translate( 'Make known users anonymous so they’re served supercached static files.' ) }
 							</span>
@@ -155,8 +147,8 @@ const Miscellaneous = ( {
 
 						<FormToggle
 							checked={ !! wp_cache_hello_world }
-							disabled={ isRequesting }
-							onChange={ handleToggle( 'wp_cache_hello_world' ) }>
+							disabled={ isRequesting || isSaving }
+							onChange={ handleAutosavingToggle( 'wp_cache_hello_world' ) }>
 							<span>
 								{ translate( 'Proudly tell the world your server is {{fry}}Stephen Fry proof{{/fry}}! ' +
 									'(places a message in your blog’s footer)',

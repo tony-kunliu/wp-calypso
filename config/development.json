@@ -67,7 +67,6 @@
 		"manage/media": true,
 		"manage/option_sync_non_public_post_stati": true,
 		"manage/pages": true,
-		"manage/pages/set-homepage": true,
 		"manage/payment-methods": true,
 		"manage/people": true,
 		"manage/people/readers": true,
@@ -89,7 +88,6 @@
 		"manage/themes/details": true,
 		"manage/themes/details/jetpack": true,
 		"manage/themes/logged-out": true,
-		"manage/themes/magic-search": true,
 		"manage/themes/upload": true,
 		"me/account": true,
 		"me/edit-gravatar": false,
@@ -154,7 +152,7 @@
 		"upgrades/presale-chat": true,
 		"webpack/persistent-caching": false,
 		"woocommerce/extension-dashboard": true,
-		"woocommerce/extension-stats": true,
+		"woocommerce/extension-stats": false,
 		"wp-login": true
 	}
 }

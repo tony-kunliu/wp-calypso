@@ -16,6 +16,10 @@ import {
 	ACCOUNT_RECOVERY_RESET_REQUEST_ERROR,
 	ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
 	ACCOUNT_RECOVERY_RESET_PICK_METHOD,
+	ACCOUNT_RECOVERY_RESET_SET_VALIDATION_KEY,
+	ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST,
+	ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS,
+	ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR,
 } from 'state/action-types';
 
 import reducer from '../reducer';
@@ -110,59 +114,19 @@ describe( '#account-recovery/reset reducer', () => {
 		assert.deepEqual( state.options.error, mockError );
 	} );
 
-	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should populate the user field.', () => {
+	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should populate the userData field.', () => {
+		const userData = deepFreeze( {
+			user: 'userlogin',
+			firstname: 'Foo',
+			lastname: 'Bar',
+			url: 'examples.com',
+		} );
 		const state = reducer( undefined, {
 			type: ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
-			userData: {
-				user: 'userlogin',
-			},
+			userData,
 		} );
 
-		assert.equal( state.userData.user, 'userlogin' );
-	} );
-
-	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should populate the firstname field.', () => {
-		const state = reducer( undefined, {
-			type: ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
-			userData: {
-				firstName: 'Foo',
-			},
-		} );
-
-		assert.equal( state.userData.firstName, 'Foo' );
-	} );
-
-	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should populate the lastname field.', () => {
-		const state = reducer( undefined, {
-			type: ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
-			userData: {
-				lastName: 'Bar',
-			},
-		} );
-
-		assert.equal( state.userData.lastName, 'Bar' );
-	} );
-
-	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should populate the url field.', () => {
-		const state = reducer( undefined, {
-			type: ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
-			userData: {
-				url: 'examples.com',
-			},
-		} );
-
-		assert.equal( state.userData.url, 'examples.com' );
-	} );
-
-	it( 'ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA action should not populate any unexpected field.', () => {
-		const state = reducer( undefined, {
-			type: ACCOUNT_RECOVERY_RESET_UPDATE_USER_DATA,
-			userData: {
-				unexpected: 'random-value',
-			},
-		} );
-
-		assert.deepEqual( state.userData, {} );
+		assert.deepEqual( state.userData, userData );
 	} );
 
 	it( 'ACCOUNT_RECOVERY_RESET_PICK_METHOD action should populate the method field', () => {
@@ -213,5 +177,77 @@ describe( '#account-recovery/reset reducer', () => {
 		} );
 
 		assert.deepEqual( state.requestReset.error, mockError );
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_SET_VALIDATION_KEY action should set the key field', () => {
+		const key = '5201314';
+		const state = reducer( undefined, {
+			type: ACCOUNT_RECOVERY_RESET_SET_VALIDATION_KEY,
+			key,
+		} );
+
+		assert.equal( state.key, key );
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST action should set the requesting status flag of the validate state tree', () => {
+		const state = reducer( undefined, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST,
+		} );
+
+		assert.isTrue( state.validate.isRequesting );
+	} );
+
+	const validatingState = deepFreeze( {
+		validate: {
+			isRequesting: true,
+		},
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS action should unset the requesting status flag of the validate state tree', () => {
+		const state = reducer( validatingState, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS,
+		} );
+
+		assert.isFalse( state.validate.isRequesting );
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR action should unset the requesting status flag of the validate state tree', () => {
+		const state = reducer( validatingState, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR,
+			error: {},
+		} );
+
+		assert.isFalse( state.validate.isRequesting );
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR action should save the error data in the validate state tree', () => {
+		const state = reducer( undefined, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR,
+			error: mockError,
+		} );
+
+		assert.deepEqual( state.validate.error, mockError );
+	} );
+
+	const validateErrorState = deepFreeze( {
+		validate: {
+			error: mockError,
+		},
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST action should clear the error field of the validate state tree', () => {
+		const state = reducer( validateErrorState, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST,
+		} );
+
+		assert.isNull( state.validate.error );
+	} );
+
+	it( 'ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS action should clear the error field of the validate state tree', () => {
+		const state = reducer( validateErrorState, {
+			type: ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS,
+		} );
+
+		assert.isNull( state.validate.error );
 	} );
 } );

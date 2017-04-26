@@ -3,10 +3,12 @@
  */
 import url from 'url';
 import { translate } from 'i18n-calypso';
+import { trim } from 'lodash';
 
 /**
  * Internal Dependencies
  */
+import { decodeEntities } from 'lib/formatting';
 
 /**
  * Given a feed, site, or post: return the url. return false if one could not be found.
@@ -46,5 +48,21 @@ export const getSiteName = ( { feed, site, post } = {} ) => {
 		siteName = ( !! siteUrl ) ? url.parse( siteUrl ).hostname : null;
 	}
 
-	return siteName;
+	return decodeEntities( siteName );
+};
+
+export const getSiteDescription = ( { site, feed } ) => {
+	return decodeEntities(
+		( site && site.description ) || ( feed && feed.description )
+	);
+};
+
+export const getSiteAuthorName = site => {
+	const siteAuthor = site && site.owner;
+	const authorFullName = siteAuthor && (
+		siteAuthor.name ||
+		trim( `${ siteAuthor.first_name || '' } ${ siteAuthor.last_name || '' }` )
+	);
+
+	return decodeEntities( authorFullName );
 };
