@@ -14,11 +14,12 @@ class JetpackConnectNotices extends Component {
 		noticeType: PropTypes.oneOf( [
 			'alreadyConnected',
 			'alreadyConnectedByOtherUser',
+			'alreadyOwned',
 			'defaultAuthorizeError',
 			'isDotCom',
-			'jetpackIsDisconnected',
 			'jetpackIsValid',
 			'notActiveJetpack',
+			'notConnectedJetpack',
 			'notExists',
 			'notJetpack',
 			'notWordPress',
@@ -70,12 +71,12 @@ class JetpackConnectNotices extends Component {
 				noticeProps.text = translate( 'You must update Jetpack before connecting.' );
 				return noticeProps;
 
-			case 'jetpackIsDisconnected':
+			case 'notConnectedJetpack':
 				noticeProps.icon = 'link-break';
 				noticeProps.text = translate( 'Jetpack is currently disconnected.' );
 				return noticeProps;
 
-			case 'jetpackIsValid':
+			case 'alreadyOwned':
 				noticeProps.icon = 'plugins';
 				noticeProps.status = 'is-success';
 				noticeProps.text = translate( 'Jetpack is connected.' );
