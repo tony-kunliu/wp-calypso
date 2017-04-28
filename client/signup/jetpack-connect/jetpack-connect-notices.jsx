@@ -8,12 +8,11 @@ import { localize } from 'i18n-calypso';
  * Internal dependencies
  */
 import Notice from 'components/notice';
-import { urlToSlug } from 'lib/url';
 
 class JetpackConnectNotices extends Component {
 	static propTypes = {
 		noticeType: PropTypes.string,
-		siteUrl: PropTypes.string
+		onDismissClick: PropTypes.func,
 	};
 
 	getNoticeValues() {
@@ -31,7 +30,7 @@ class JetpackConnectNotices extends Component {
 		};
 
 		if ( onDismissClick ) {
-			noticeValues.onDismissClick = this.props.onDismissClick;
+			noticeValues.onDismissClick = onDismissClick;
 			noticeValues.showDismiss = true;
 		}
 
@@ -127,8 +126,7 @@ class JetpackConnectNotices extends Component {
 	}
 
 	render() {
-		const urlSlug = this.props.url ? urlToSlug( this.props.url ) : '';
-		const values = this.getNoticeValues( urlSlug );
+		const values = this.getNoticeValues();
 		if ( values ) {
 			return (
 				<div className="jetpack-connect__notices-container">
