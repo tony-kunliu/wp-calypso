@@ -166,32 +166,7 @@ export function extendAction( action, data ) {
  * @return {Function}                Reducer function
  */
 export function createReducer( initialState = null, customHandlers = {}, schema = null ) {
-	// Define default handlers for serialization actions. If no schema is
-	// provided, always return the initial state. Otherwise, allow for
-	// serialization and validate on deserialize.
-	let defaultHandlers;
-	if ( schema ) {
-		defaultHandlers = {
-			[ SERIALIZE ]: ( state ) => state,
-			[ DESERIALIZE ]: ( state ) => {
-				if ( isValidStateWithSchema( state, schema ) ) {
-					return state;
-				}
-
-				warn( 'state validation failed - check schema used for:', customHandlers );
-
-				return initialState;
-			}
-		};
-	} else {
-		defaultHandlers = {
-			[ SERIALIZE ]: () => initialState,
-			[ DESERIALIZE ]: () => initialState
-		};
-	}
-
 	const handlers = {
-		...defaultHandlers,
 		...customHandlers
 	};
 
@@ -212,7 +187,7 @@ export function createReducer( initialState = null, customHandlers = {}, schema 
 		};
 	}
 
-	return ( state = initialState, action ) => {
+	const reducer = ( state = initialState, action ) => {
 		const { type } = action;
 
 		if ( 'production' !== process.env.NODE_ENV && 'type' in action && ! type ) {
@@ -226,6 +201,14 @@ export function createReducer( initialState = null, customHandlers = {}, schema 
 
 		return state;
 	};
+
+	if ( customHandlers[ SERIALIZE ] ) {
+		reducer.hasCustomPersistence = true;
+	} else if ( schema ) {
+		reducer.schema = schema;
+	}
+
+	return reducer;
 }
 
 /**
