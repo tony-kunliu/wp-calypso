@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { property, sortBy } from 'lodash';
 
 /**
@@ -26,7 +26,7 @@ export const lastUpdate = ( state = 0, action ) =>
 		? action.lastUpdate
 		: state;
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	eligibilityHolds,
 	eligibilityWarnings,
 	lastUpdate,

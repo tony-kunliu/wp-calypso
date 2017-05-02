@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -86,7 +86,7 @@ const items = createReducer( {}, {
 	} ),
 }, itemsSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	requesting,
 	saveStatus,

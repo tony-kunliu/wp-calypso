@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import keyBy from 'lodash/keyBy';
 
 /**
@@ -71,7 +71,7 @@ export function items( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	requesting,
 	items,
 	taxonomies

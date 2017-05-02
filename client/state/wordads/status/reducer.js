@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ export const fetchingItems = createReducer( {}, {
 	[ WORDADS_STATUS_REQUEST_FAILURE ]: ( state, action ) => Object.assign( {}, state, { [ action.siteId ]: false } ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	fetchingItems
 } );

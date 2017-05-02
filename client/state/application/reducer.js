@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -17,6 +17,6 @@ export const connectionState = createReducer( 'CHECKING', {
 	[ CONNECTION_RESTORED ]: () => 'ONLINE'
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	connectionState
 } );

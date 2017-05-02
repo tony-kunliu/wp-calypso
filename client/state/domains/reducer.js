@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
  */
 import suggestions from './suggestions/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	suggestions
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -16,6 +16,6 @@ export const isNpsSurveyDialogShowing = createReducer( false, {
 		isShowing !== undefined ? isShowing : state,
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	isNpsSurveyDialogShowing,
 } );

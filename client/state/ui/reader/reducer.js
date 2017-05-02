@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { combineReducers } from 'redux';
 import sidebar from './sidebar/reducer';
 import cardExpansions from './card-expansions/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	sidebar,
 	cardExpansions,
 } );

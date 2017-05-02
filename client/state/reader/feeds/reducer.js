@@ -1,10 +1,15 @@
-import { combineReducers } from 'redux';
+/**
+ * External dependencies
+ */
 import assign from 'lodash/assign';
 import keyBy from 'lodash/keyBy';
 import map from 'lodash/map';
 import omit from 'lodash/omit';
 import omitBy from 'lodash/omitBy';
 
+/**
+ * Internal dependencies
+ */
 import {
 	READER_FEED_REQUEST,
 	READER_FEED_REQUEST_SUCCESS,
@@ -16,7 +21,7 @@ import {
 
 import { decodeEntities } from 'lib/formatting';
 
-import { isValidStateWithSchema } from 'state/utils';
+import { combineReducersWithPersistence, isValidStateWithSchema } from 'state/utils';
 import { itemsSchema } from './schema';
 
 const actionMap = {
@@ -101,7 +106,7 @@ export function queuedRequests( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	queuedRequests
 } );

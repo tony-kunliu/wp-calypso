@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { combineReducers } from 'redux';
 import siteTitle from './site-title/reducer';
 import survey from './survey/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	siteTitle,
 	survey,
 } );

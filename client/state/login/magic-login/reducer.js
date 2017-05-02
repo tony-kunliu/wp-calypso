@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ export const requestEmailSuccess = createReducer( false, {
 	[ MAGIC_LOGIN_REQUEST_LOGIN_EMAIL_SUCCESS ]: () => true,
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	emailAddressFormInput,
 	isFetchingEmail,
 	requestAuthError,

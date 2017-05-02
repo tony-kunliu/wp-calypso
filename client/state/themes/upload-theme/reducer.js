@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { omit } from 'lodash';
 
 /**
@@ -116,7 +116,7 @@ export const inProgress = createReducer( {}, {
 	} ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	uploadedThemeId,
 	uploadError,
 	progressLoaded,

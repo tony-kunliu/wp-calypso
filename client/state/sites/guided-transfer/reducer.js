@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -65,7 +65,7 @@ export const isSaving = createReducer( {}, {
 		( { ...state, [ action.siteId ]: false } ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	error,
 	isFetching,
 	isSaving,

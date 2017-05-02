@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -62,7 +62,7 @@ export const uploadProgress = ( state = null, { type, percentage } ) => {
  */
 export const showError = ( state = false, { type } ) => type === VIDEO_EDITOR_SHOW_ERROR;
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	closeModal,
 	showError,
 	uploadProgress,

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import debugFactory from 'debug';
 import omit from 'lodash/omit';
 
@@ -168,7 +168,7 @@ function settings( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	settings,
 	system
 } );

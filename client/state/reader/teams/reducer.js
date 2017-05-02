@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ export const isRequesting = createReducer( false, {
 	[ READER_TEAMS_RECEIVE ]: () => false,
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	isRequesting,
 } );

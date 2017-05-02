@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import {
 	concat,
 	filter,
@@ -266,7 +266,7 @@ export const lostFocusAt = ( state = null, action ) => {
 	return state;
 };
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	chatStatus,
 	connectionError,
 	connectionStatus,

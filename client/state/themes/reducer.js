@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { mapValues, omit } from 'lodash';
 
 /**
@@ -381,7 +381,7 @@ export const themeFilters = createReducer( {}, {
 	[ THEME_FILTERS_ADD ]: ( state, { filters } ) => ( filters )
 }, themeFiltersSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	queries,
 	queryRequests,
 	queryRequestErrors,

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const suggestedUsername = createReducer( '',
 	suggestedUsernameSchema
 );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	suggestedUsername
 } );
 

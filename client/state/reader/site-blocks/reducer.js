@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ export const items = keyedReducer( 'siteId', createReducer( {}, {
 	[ READER_SITE_UNBLOCK_REQUEST_FAILURE ]: () => true,
 } ) );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 } );
 

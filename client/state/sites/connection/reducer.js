@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ export const requesting = createReducer( {}, {
 	[ SITE_CONNECTION_STATUS_REQUEST_SUCCESS ]: createRequestingReducer( false ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	requesting,
 } );

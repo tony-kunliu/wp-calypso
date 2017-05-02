@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { get, isEqual, reduce } from 'lodash';
 
 /**
@@ -96,7 +96,7 @@ export function capabilities( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	id,
 	currencyCode,
 	capabilities,

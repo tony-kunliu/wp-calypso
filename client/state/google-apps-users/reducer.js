@@ -2,7 +2,7 @@
  * External Dependencies
  */
 
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import uniqBy from 'lodash/uniqBy';
 
 /**
@@ -41,7 +41,7 @@ export function loaded( state = false, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	loaded
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { pick, omit, merge, get, includes, reduce, isEqual } from 'lodash';
 
 /**
@@ -246,7 +246,7 @@ export const requesting = createReducer( {}, {
 	}
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	connection,
 	domains,
 	requestingAll,

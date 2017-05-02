@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { get, set, omit, omitBy, isEqual, reduce, merge, findKey, mapValues, mapKeys } from 'lodash';
 
 /**
@@ -308,7 +308,7 @@ export function edits( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	counts,
 	items,
 	siteRequests,

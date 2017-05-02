@@ -1,4 +1,7 @@
-import { combineReducers } from 'redux';
+/**
+ * Internal dependencies
+ */
+import { combineReducersWithPersistence } from 'state/utils';
 
 import {
 	HAPPYCHAT_OPEN,
@@ -32,4 +35,4 @@ const isMinimizing = ( state = false, action ) => {
 	return state;
 };
 
-export default combineReducers( { open, isMinimizing } );
+export default combineReducersWithPersistence( { open, isMinimizing } );

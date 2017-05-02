@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import wporg from './wporg/reducer';
 import premium from './premium/reducer';
 import installed from './installed/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	wporg,
 	premium,
 	installed

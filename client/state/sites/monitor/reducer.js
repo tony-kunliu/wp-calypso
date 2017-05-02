@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { stubFalse, stubTrue } from 'lodash';
 
 /**
@@ -34,7 +34,7 @@ export const updating = keyedReducer( 'siteId', createReducer( {}, {
 	[ SITE_MONITOR_SETTINGS_UPDATE_FAILURE ]: stubFalse,
 } ) );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	requesting,
 	updating,

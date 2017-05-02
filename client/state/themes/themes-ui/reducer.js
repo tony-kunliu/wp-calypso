@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -17,4 +17,4 @@ function backPath( state = '/themes', action ) {
 	return state;
 }
 
-export default combineReducers( { backPath } );
+export default combineReducersWithPersistence( { backPath } );

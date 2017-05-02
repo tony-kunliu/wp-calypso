@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -15,6 +15,6 @@ export const items = createReducer( null, {
 	[ HELP_COURSES_RECEIVE ]: ( state, { courses } ) => courses
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ export const requestSuccess = createReducer( null, {
 	[ LOGIN_REQUEST_FAILURE ]: () => false
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	isRequesting,
 	magicLogin,
 	requestError,

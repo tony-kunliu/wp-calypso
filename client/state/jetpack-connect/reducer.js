@@ -2,7 +2,7 @@
  * External dependencis
  */
 import { isEmpty, omit, pickBy } from 'lodash';
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -301,7 +301,7 @@ export function jetpackConnectSelectedPlans( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	jetpackConnectSite,
 	jetpackSSO,
 	jetpackConnectAuthorize,

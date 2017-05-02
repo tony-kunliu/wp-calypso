@@ -1,4 +1,7 @@
-import { combineReducers } from 'redux';
+/**
+ * External dependencies
+ */
+import { combineReducersWithPersistence } from 'state/utils';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import omitBy from 'lodash/omitBy';
@@ -6,6 +9,9 @@ import keyBy from 'lodash/keyBy';
 import map from 'lodash/map';
 import trim from 'lodash/trim';
 
+/**
+ * Internal dependencies
+ */
 import {
 	READER_SITE_REQUEST,
 	READER_SITE_REQUEST_SUCCESS,
@@ -113,7 +119,7 @@ export function queuedRequests( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	queuedRequests
 } );

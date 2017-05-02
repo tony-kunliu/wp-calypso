@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import merge from 'lodash/merge';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
@@ -190,7 +190,7 @@ export const counts = ( () => {
 	}, countsSchema );
 } )();
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	requesting,
 	counts
 } );

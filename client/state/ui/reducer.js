@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -10,8 +10,6 @@ import {
 	SELECTED_SITE_SET,
 	SECTION_SET,
 	PREVIEW_IS_SHOWING,
-	SERIALIZE,
-	DESERIALIZE,
 } from 'state/action-types';
 import { createReducer } from 'state/utils';
 import editor from './editor/reducer';
@@ -74,7 +72,7 @@ export const isPreviewShowing = createReducer( false, {
 		isShowing !== undefined ? isShowing : state,
 } );
 
-const reducer = combineReducers( {
+export default combineReducersWithPersistence( {
 	section,
 	isLoading,
 	layoutFocus,
@@ -94,11 +92,3 @@ const reducer = combineReducers( {
 	themeSetup,
 	npsSurveyNotice,
 } );
-
-export default function( state, action ) {
-	if ( SERIALIZE === action.type || DESERIALIZE === action.type ) {
-		return {};
-	}
-
-	return reducer( state, action );
-}

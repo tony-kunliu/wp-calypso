@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { omit } from 'lodash';
 
 /**
@@ -64,7 +64,7 @@ const lastFetchedTimestamp = createReducer( false, {
 	[ PREFERENCES_FETCH_SUCCESS ]: () => Date.now(),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	localValues,
 	remoteValues,
 	fetching,

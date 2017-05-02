@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { find, get, isEqual, merge, reduce } from 'lodash';
 
 /**
@@ -117,7 +117,7 @@ export const itemsCount = createReducer( 0, {
 	}
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	itemsCount,
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { stubTrue, stubFalse } from 'lodash';
 
 /**
@@ -83,7 +83,7 @@ const validate = combineReducers( {
 	} ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	options,
 	userData,
 	method,

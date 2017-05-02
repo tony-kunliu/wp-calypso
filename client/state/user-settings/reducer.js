@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import omit from 'lodash/omit';
 
 /**
@@ -43,7 +43,7 @@ export const unsavedSettings = ( state = {}, action ) => {
 	}
 };
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	settings,
 	unsavedSettings,
 } );

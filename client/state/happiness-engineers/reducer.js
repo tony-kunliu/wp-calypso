@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { map } from 'lodash';
 
 /**
@@ -45,7 +45,7 @@ export const items = createReducer( null, {
 	}
 }, itemsSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	requesting,
 	items
 } );

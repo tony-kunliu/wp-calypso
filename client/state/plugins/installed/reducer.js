@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import {
 	uniqBy,
 	omit,
@@ -128,7 +128,7 @@ function plugin( state, action ) {
 	}
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	isRequesting,
 	plugins,
 	status

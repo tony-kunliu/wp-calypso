@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { mapValues, merge } from 'lodash';
 
 /**
@@ -134,7 +134,7 @@ export const saveRequests = createReducer( {}, {
 	} )
 } );
 
-export const reducer = combineReducers( {
+export const reducer = combineReducersWithPersistence( {
 	items,
 	requests,
 	saveRequests

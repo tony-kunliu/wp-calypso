@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { keyBy, omit, omitBy } from 'lodash';
 
 /**
@@ -78,7 +78,7 @@ export const connections = createReducer( {}, {
 	[ PUBLICIZE_CONNECTION_UPDATE ]: ( state, { connection } ) => ( { ...state, [ connection.ID ]: connection } ),
 }, connectionsSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	fetchingConnection,
 	fetchingConnections,
 	fetchedConnections,

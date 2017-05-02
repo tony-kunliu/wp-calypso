@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { merge } from 'lodash';
 
 /**
@@ -63,7 +63,7 @@ export const requests = createReducer( {}, {
 	[ JETPACK_JUMPSTART_STATUS_REQUEST_SUCCESS ]: createRequestReducer( { requesting: false } )
 } );
 
-export const reducer = combineReducers( {
+export const reducer = combineReducersWithPersistence( {
 	items,
 	requests
 } );

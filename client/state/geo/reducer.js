@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ export const geo = createReducer( null, {
 	[ GEO_RECEIVE ]: ( state, action ) => action.geo
 }, geoSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	requesting,
 	geo
 } );

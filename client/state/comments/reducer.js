@@ -2,7 +2,7 @@
  * External dependencies
  */
 import Immutable from 'immutable';
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -192,7 +192,7 @@ export function totalCommentsCount( state = Immutable.Map(), action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	requests,
 	totalCommentsCount

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { forEach, get, merge, pickBy } from 'lodash';
 
 /**
@@ -122,7 +122,7 @@ export const requests = createReducer( {}, {
 	[ JETPACK_MODULES_REQUEST_SUCCESS ]: createModuleListRequestReducer( false )
 } );
 
-export const reducer = combineReducers( {
+export const reducer = combineReducersWithPersistence( {
 	items,
 	requests
 } );

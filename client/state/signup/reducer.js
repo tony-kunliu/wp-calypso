@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import dependencyStore from './dependency-store/reducer';
 import optionalDependencies from './optional-dependencies/reducer';
 import steps from './steps/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	dependencyStore,
 	optionalDependencies,
 	steps,

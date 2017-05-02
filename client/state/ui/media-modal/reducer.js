@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -13,6 +13,6 @@ export const view = createReducer( null, {
 	[ MEDIA_MODAL_VIEW_SET ]: ( state, action ) => action.view
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	view
 } );

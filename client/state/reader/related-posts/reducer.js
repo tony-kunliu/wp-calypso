@@ -1,7 +1,7 @@
 /**
  * External Dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import assign from 'lodash/assign';
 import partial from 'lodash/partial';
 import map from 'lodash/map';
@@ -40,7 +40,7 @@ export const queuedRequests = createReducer( {}, {
 	[ READER_RELATED_POSTS_REQUEST_FAILURE ]: partial( setRequestFlag, false )
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	queuedRequests
 } );

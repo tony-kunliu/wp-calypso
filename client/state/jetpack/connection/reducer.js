@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ export const disconnectRequests = createReducer( {}, {
 	[ JETPACK_DISCONNECT_REQUEST_SUCCESS ]: createRequestReducer( false )
 } );
 
-export const reducer = combineReducers( {
+export const reducer = combineReducersWithPersistence( {
 	items,
 	requests,
 	disconnectRequests

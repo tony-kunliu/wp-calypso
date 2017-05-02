@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ const isFetchingSettings = createReducer( false, {
 	[ ACCOUNT_RECOVERY_SETTINGS_FETCH_FAILED ]: () => false,
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	settings,
 	reset,
 	isFetchingSettings,

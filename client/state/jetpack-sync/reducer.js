@@ -1,7 +1,7 @@
 /**
  * External dependencis
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import { pick, get } from 'lodash';
 
 /**
@@ -105,7 +105,7 @@ export function syncStatus( state = {}, action ) {
 	return state;
 }
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	syncStatus,
 	fullSyncRequest
 } );

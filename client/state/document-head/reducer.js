@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ export const link = createReducer( [], {
 	[ DOCUMENT_HEAD_LINK_ADD ]: ( state, action ) => ( [ ...state, action.link ] )
 }, linkSchema );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	link,
 	meta,
 	title,

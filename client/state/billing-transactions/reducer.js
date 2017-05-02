@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ export const sendingReceiptEmail = createReducer( {}, {
 	[ BILLING_RECEIPT_EMAIL_SEND_SUCCESS ]: ( state, { receiptId } ) => ( { ...state, [ receiptId ]: false } ),
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items,
 	requesting,
 	sendingReceiptEmail,

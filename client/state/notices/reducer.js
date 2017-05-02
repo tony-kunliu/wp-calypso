@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 import omit from 'lodash/omit';
 import reduce from 'lodash/reduce';
 
@@ -51,6 +51,6 @@ export const items = createReducer( {}, {
 	}
 } );
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	items
 } );

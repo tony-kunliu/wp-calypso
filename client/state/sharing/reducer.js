@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
+import { combineReducersWithPersistence } from 'state/utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import keyring from './keyring/reducer';
 import publicize from './publicize/reducer';
 import services from './services/reducer';
 
-export default combineReducers( {
+export default combineReducersWithPersistence( {
 	keyring,
 	publicize,
 	services,
