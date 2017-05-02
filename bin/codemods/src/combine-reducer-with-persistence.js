@@ -49,5 +49,5 @@ module.exports = function(file, api) {
 	combineReducerIdentifier.forEach( renameIdentifier('combineReducersWithPersistence') );
 
 	// print
-	return root.toSource();
+	return root.toSource( {quote: 'single'} );
 };
