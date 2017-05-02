@@ -23,7 +23,7 @@ import {
 	ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_ERROR,
 } from 'state/action-types';
 
-const options = combineReducers( {
+const options = combineReducersWithPersistence( {
 	isRequesting: createReducer( false, {
 		[ ACCOUNT_RECOVERY_RESET_OPTIONS_REQUEST ]: stubTrue,
 		[ ACCOUNT_RECOVERY_RESET_OPTIONS_RECEIVE ]: stubFalse,
@@ -51,7 +51,7 @@ const method = createReducer( null, {
 	[ ACCOUNT_RECOVERY_RESET_SET_METHOD ]: ( state, action ) => action.method,
 } );
 
-const requestReset = combineReducers( {
+const requestReset = combineReducersWithPersistence( {
 	isRequesting: createReducer( false, {
 		[ ACCOUNT_RECOVERY_RESET_REQUEST ]: stubTrue,
 		[ ACCOUNT_RECOVERY_RESET_REQUEST_SUCCESS ]: stubFalse,
@@ -69,7 +69,7 @@ const key = createReducer( null, {
 	[ ACCOUNT_RECOVERY_RESET_SET_VALIDATION_KEY ]: ( state, action ) => action.key,
 } );
 
-const validate = combineReducers( {
+const validate = combineReducersWithPersistence( {
 	isRequesting: createReducer( false, {
 		[ ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST ]: stubTrue,
 		[ ACCOUNT_RECOVERY_RESET_VALIDATE_REQUEST_SUCCESS ]: stubFalse,

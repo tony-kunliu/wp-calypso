@@ -129,7 +129,7 @@ const isReady = createReducer( false, {
 } );
 
 export default combineReducersWithPersistence( {
-	data: combineReducers( {
+	data: combineReducersWithPersistence( {
 		phone,
 		phoneValidated,
 		email,
