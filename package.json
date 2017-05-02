@@ -143,8 +143,12 @@
     "npm": "3.10.10"
   },
   "scripts": {
-    "css-lint": "stylelint 'client/**/*.scss' --syntax scss",
-    "lint": "bin/run-lint .",
+    "eslint-branch": "node bin/eslint-branch.js",
+    "lint": "run-s -s lint:*",
+    "lint:config-defaults": "node server/config/validate-config-keys.js",
+    "lint:css": "stylelint \"client/**/*.scss\" --syntax scss",
+    "lint:js": "node bin/run-lint .",
+    "lint:mixedindent": "mixedindentlint --ignore-comments \"client/**/*.scss\" \"assets/**/*.scss\" \"**/*.js\" \"**/*.jsx\" \"!build/**\" \"!node_modules/**\" \"!public/**\" \"!client/config/index.js\"",
     "test": "npm run test-client && npm run test-server && npm run test-test",
     "test-client": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=client test/runner.js",
     "test-client:watch": "nodemon -e js,jsx --exec npm run test-client",

@@ -15,7 +15,7 @@ test:
           fi
       : parallel: true
   override:
-    - make config-defaults-lint
+    - npm run lint:config-defaults
     - bin/run-lint :
         parallel: true
         files:
