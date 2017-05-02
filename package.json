@@ -143,15 +143,15 @@
     "npm": "3.10.10"
   },
   "scripts": {
+    "css-lint": "stylelint 'client/**/*.scss' --syntax scss",
+    "lint": "bin/run-lint .",
     "test": "npm run test-client && npm run test-server && npm run test-test",
     "test-client": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=client test/runner.js",
-    "test-server": "NODE_ENV=test NODE_PATH=test:server:client TEST_ROOT=server test/runner.js",
-    "test-test": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=test test/runner.js",
     "test-client:watch": "nodemon -e js,jsx --exec npm run test-client",
+    "test-server": "NODE_ENV=test NODE_PATH=test:server:client TEST_ROOT=server test/runner.js",
     "test-server:watch": "nodemon -e js,jsx --exec npm run test-server",
-    "test-test:watch": "nodemon -e js,jsx --exec npm run test-test",
-    "lint": "bin/run-lint .",
-    "css-lint": "stylelint 'client/**/*.scss' --syntax scss"
+    "test-test": "NODE_ENV=test NODE_PATH=test:client TEST_ROOT=test test/runner.js",
+    "test-test:watch": "nodemon -e js,jsx --exec npm run test-test"
   },
   "devDependencies": {
     "5to6-codemod": "git://github.com/jsnmoon/5to6-codemod#v1.8.0",
