@@ -12,6 +12,9 @@ import {
 	WP_SUPER_CACHE_DELETE_CACHE_FAILURE,
 	WP_SUPER_CACHE_DELETE_CACHE_SUCCESS,
 	WP_SUPER_CACHE_PRELOAD_CACHE,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_FAILURE,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_SUCCESS,
 	WP_SUPER_CACHE_PRELOAD_CACHE_FAILURE,
 	WP_SUPER_CACHE_PRELOAD_CACHE_SUCCESS,
 	WP_SUPER_CACHE_RECEIVE_TEST_CACHE_RESULTS,
@@ -117,6 +120,38 @@ const preloadStatus = createReducer( {}, {
 } );
 
 /**
+ * Returns the updated preload cancel state after an action has been dispatched.
+ * Cancel preloading state tracks whether the preload for a site is currently being cancelled.
+ *
+ * @param  {Object} state Current cancel preload state
+ * @param  {Object} action Action object
+ * @return {Object} Updated cancel preload state
+ */
+const preloadCancelStatus = createReducer( {}, {
+	[ WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL ]: ( state, { siteId } ) => ( {
+		...state,
+		[ siteId ]: {
+			cancelling: true,
+			status: 'pending',
+		}
+	} ),
+	[ WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_SUCCESS ]: ( state, { siteId } ) => ( {
+		...state,
+		[ siteId ]: {
+			cancelling: false,
+			status: 'success',
+		}
+	} ),
+	[ WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_FAILURE ]: ( state, { siteId } ) => ( {
+		...state,
+		[ siteId ]: {
+			cancelling: false,
+			status: 'error',
+		}
+	} )
+} );
+
+/**
  * Tracks the cache test results for a particular site.
  *
  * @param  {Object} state Current cache test results
@@ -130,6 +165,7 @@ const items = createReducer( {}, {
 export default combineReducers( {
 	deleteStatus,
 	items,
+	preloadCancelStatus,
 	preloadStatus,
 	testStatus,
 } );

@@ -7,6 +7,9 @@ import {
 	WP_SUPER_CACHE_DELETE_CACHE_FAILURE,
 	WP_SUPER_CACHE_DELETE_CACHE_SUCCESS,
 	WP_SUPER_CACHE_PRELOAD_CACHE,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_FAILURE,
+	WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_SUCCESS,
 	WP_SUPER_CACHE_PRELOAD_CACHE_FAILURE,
 	WP_SUPER_CACHE_PRELOAD_CACHE_SUCCESS,
 	WP_SUPER_CACHE_RECEIVE_TEST_CACHE_RESULTS,
@@ -92,10 +95,9 @@ export const deleteCache = ( siteId, deleteAll ) => {
  * Preloads the cache for a site.
  *
  * @param  {Number} siteId Site ID
- * @param  {Boolean} cancelPreload Whether to cancel the preload
  * @returns {Function} Action thunk that preloads the cache for a given site
  */
-export const preloadCache = ( siteId, cancelPreload ) => {
+export const preloadCache = ( siteId ) => {
 	return ( dispatch ) => {
 		dispatch( {
 			type: WP_SUPER_CACHE_PRELOAD_CACHE,
@@ -104,7 +106,7 @@ export const preloadCache = ( siteId, cancelPreload ) => {
 
 		return wp.req.post(
 			{ path: `/jetpack-blogs/${ siteId }/rest-api/` },
-			{ path: '/wp-super-cache/v1/preload', body: JSON.stringify( { enable: ! cancelPreload } ), json: true } )
+			{ path: '/wp-super-cache/v1/preload', body: JSON.stringify( { enable: true } ), json: true } )
 			.then( () => {
 				dispatch( {
 					type: WP_SUPER_CACHE_PRELOAD_CACHE_SUCCESS,
@@ -114,6 +116,37 @@ export const preloadCache = ( siteId, cancelPreload ) => {
 			.catch( () => {
 				dispatch( {
 					type: WP_SUPER_CACHE_PRELOAD_CACHE_FAILURE,
+					siteId,
+				} );
+			} );
+	};
+};
+
+/*
+ * Cancels preloading the cache for a site.
+ *
+ * @param  {Number} siteId Site ID
+ * @returns {Function} Action thunk that cances preloading the cache for a given site
+ */
+export const cancelPreloadCache = ( siteId ) => {
+	return ( dispatch ) => {
+		dispatch( {
+			type: WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL,
+			siteId,
+		} );
+
+		return wp.req.post(
+			{ path: `/jetpack-blogs/${ siteId }/rest-api/` },
+			{ path: '/wp-super-cache/v1/preload', body: JSON.stringify( { enable: false } ), json: true } )
+			.then( () => {
+				dispatch( {
+					type: WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_SUCCESS,
+					siteId,
+				} );
+			} )
+			.catch( () => {
+				dispatch( {
+					type: WP_SUPER_CACHE_PRELOAD_CACHE_CANCEL_FAILURE,
 					siteId,
 				} );
 			} );

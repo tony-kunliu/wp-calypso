@@ -112,3 +112,36 @@ export function isCachePreloadSuccessful( state, siteId ) {
 export function getPreloadStatus( state, siteId ) {
 	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'preloadStatus', siteId, 'status' ] );
 }
+
+/**
+ * Returns true if we are cancelling the preload of the cache for the specified site ID, false otherwise.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {Boolean} Whether the preload is being cancelled
+ */
+export function isCancellingPreload( state, siteId ) {
+	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'preloadCancelStatus', siteId, 'cancelling' ], false );
+}
+
+/**
+ * Returns true if the preload request was successful.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {Boolean} Whether the preload request was successful
+ */
+export function isCancelCachePreloadSuccessful( state, siteId ) {
+	return getCancelPreloadStatus( state, siteId ) === 'success';
+}
+
+/**
+ * Returns the status of the last preload request.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {String}  Preload request status (pending, success or error)
+ */
+export function getCancelPreloadStatus( state, siteId ) {
+	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'preloadCancelStatus', siteId, 'status' ] );
+}
