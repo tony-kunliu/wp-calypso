@@ -79,3 +79,36 @@ export function getCacheTestStatus( state, siteId ) {
 export function getCacheTestResults( state, siteId ) {
 	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'items', siteId ] );
 }
+
+/**
+ * Returns true if we are preloading the cache for the specified site ID, false otherwise.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {Boolean} Whether the cache is being preloaded
+ */
+export function isPreloadingCache( state, siteId ) {
+	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'preloadStatus', siteId, 'preloading' ], false );
+}
+
+/**
+ * Returns true if the preload request was successful.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {Boolean} Whether the preload request was successful
+ */
+export function isCachePreloadSuccessful( state, siteId ) {
+	return getPreloadStatus( state, siteId ) === 'success';
+}
+
+/**
+ * Returns the status of the last preload request.
+ *
+ * @param  {Object}  state Global state tree
+ * @param  {Number}  siteId Site ID
+ * @return {String}  Preload request status (pending, success or error)
+ */
+export function getPreloadStatus( state, siteId ) {
+	return get( state, [ 'extensions', 'wpSuperCache', 'cache', 'preloadStatus', siteId, 'status' ] );
+}
