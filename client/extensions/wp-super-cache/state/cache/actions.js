@@ -105,8 +105,7 @@ export const preloadCache = ( siteId, cancelPreload ) => {
 		return wp.req.post(
 			{ path: `/jetpack-blogs/${ siteId }/rest-api/` },
 			{ path: '/wp-super-cache/v1/preload', body: JSON.stringify( { enable: ! cancelPreload } ), json: true } )
-			.then( ( { data } ) => {
-				dispatch( receiveResults( siteId, data ) );
+			.then( () => {
 				dispatch( {
 					type: WP_SUPER_CACHE_PRELOAD_CACHE_SUCCESS,
 					siteId,
