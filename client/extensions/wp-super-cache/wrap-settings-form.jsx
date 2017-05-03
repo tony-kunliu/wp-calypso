@@ -26,6 +26,7 @@ import {
 } from 'state/ui/selectors';
 import {
 	deleteCache,
+	preloadCache,
 	testCache,
 } from './state/cache/actions';
 import {
@@ -39,6 +40,9 @@ import {
 	isCacheDeleteSuccessful,
 	isCacheTestSuccessful,
 	isDeletingCache,
+	isCachePreloadSuccessful,
+	isCacheTestSuccessful,
+	isPreloadingCache,
 	isTestingCache,
 } from './state/cache/selectors';
 import { getNotices } from './state/notices/selectors';
@@ -240,11 +244,16 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 			this.props.testCache( this.props.siteId, httpOnly );
 		}
 
+		handlePreloadCache = cancelPreload => {
+			this.props.preloadCache( this.props.siteId, cancelPreload );
+		}
+
 		render() {
 			const utils = {
 				handleAutosavingToggle: this.handleAutosavingToggle,
 				handleChange: this.handleChange,
 				handleDeleteCache: this.handleDeleteCache,
+				handlePreloadCache: this.handlePreloadCache,
 				handleRadio: this.handleRadio,
 				handleSelect: this.handleSelect,
 				handleSubmitForm: this.handleSubmitForm,
@@ -296,11 +305,15 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 			const isTesting = isTestingCache( state, siteId );
 			const isTestSuccessful = isCacheTestSuccessful( state, siteId );
 			const cacheTestResults = getCacheTestResults( state, siteId );
+			const isPreloading = isPreloadingCache( state, siteId );
+			const isPreloadSuccessful = isCachePreloadSuccessful( state, siteId );
 
 			return {
 				cacheTestResults,
 				isDeleteSuccessful,
 				isDeleting,
+				isPreloading,
+				isPreloadSuccessful,
 				isRequesting,
 				isSaveSuccessful,
 				isSaving,
@@ -317,6 +330,7 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 			const boundActionCreators = bindActionCreators( {
 				deleteCache,
 				errorNotice,
+				preloadCache,
 				removeNotice,
 				saveSettings,
 				successNotice,
