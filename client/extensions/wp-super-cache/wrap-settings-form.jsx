@@ -38,10 +38,9 @@ import { saveSettings } from './state/settings/actions';
 import {
 	getCacheTestResults,
 	isCacheDeleteSuccessful,
-	isCacheTestSuccessful,
-	isDeletingCache,
 	isCachePreloadSuccessful,
 	isCacheTestSuccessful,
+	isDeletingCache,
 	isPreloadingCache,
 	isTestingCache,
 } from './state/cache/selectors';
