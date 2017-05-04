@@ -9,16 +9,25 @@ import { find } from 'lodash';
 import { requestTags } from 'state/reader/tags/items/actions';
 import { getReaderFollowedTags, getReaderTags } from 'state/selectors';
 
+/**
+ *  Need for reader tags.
+ * @param {Boolean} tags - if true then will hand over all tags currently in redux. Will also request for followed tags if empty
+ * @param {Boolean} followedTags - if true will hand over 'followedTags' prop to its children.  Will request for followedTags if empty
+ * @param {undefined|Object} tag - must be of the form: { slug }.  Will request a specific tag and hand the key 'tag' to its child.
+ *
+ * @returns {Object} the wrapped component that will fetch reader tags
+ */
 const readerTags = ( {
 	tags = false,
 	followedTags = false,
-	tag = { slug: 'slug' } }
+	tag = undefined }
 ) => ( {
 	mapStateToProps: ( state, ownProps ) => {
 		const props = {};
 
 		if ( tag ) {
-			props.tag = getReaderTags( ownProps[ tag.slug ] );
+			const slug = ownProps[ tag.slug ];
+			props.tag = find( getReaderTags( state ), { slug } );
 		}
 		if ( tags ) {
 			props.tags = getReaderTags( state );
@@ -32,17 +41,11 @@ const readerTags = ( {
 
 	mapStateToRequestActions: ( state, ownProps ) => {
 		const requestActions = [];
-		const followedTagsShouldBeFetched = followedTags && getReaderFollowedTags( state ) === null;
+		const tagsShouldBeFetched = ( followedTags || tags ) && getReaderTags( state ) === null;
 		const tagShouldBeFetched = tag && ownProps[ tag.slug ] && ! find( getReaderTags( state ), { slug: ownProps[ tag.slug ] } );
 
-		followedTagsShouldBeFetched && requestActions.push( requestTags() );
-		tagShouldBeFetched && requestActions.push( requestTags( ownProps.tag ) );
-		console.error(
-			ownProps,
-			ownProps.tag,
-			tagShouldBeFetched,
-			getReaderTags( state ) && getReaderTags( state )[ 187477 ],
-		);
+		tagsShouldBeFetched && requestActions.push( requestTags() );
+		tagShouldBeFetched && requestActions.push( requestTags( ownProps[ tag.slug ] ) );
 
 		return requestActions;
 	}

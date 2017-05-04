@@ -121,7 +121,7 @@ const TagStream = React.createClass( {
 
 export default needs(
 	[
-		readerTags( { tags: true, followedTags: true } ),
+		readerTags( { tag: { slug: 'encodedTagSlug' } } ),
 	],
 	{
 		followTag: requestFollowTag,
