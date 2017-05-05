@@ -24,7 +24,7 @@ export default class ProductForm extends Component {
 	render() {
 		const { product } = this.props;
 		return (
-			<div className="woocommerce products__form">
+			<div className="products__form">
 				<ProductFormDetailsCard
 					product={ product }
 					editProduct={ this.props.editProduct }

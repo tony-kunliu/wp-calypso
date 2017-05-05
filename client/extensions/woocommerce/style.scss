@@ -26,6 +26,20 @@
 		border: 0;
 	}
 
+	.products__header {
+		width: 100%;
+	}
+
+	.products__header-right {
+		position: absolute;
+		top: 16px;
+		right: 24px;
+
+		.button {
+			margin-left: 8px;
+		}
+	}
+
 	.products__product-form-details-featured {
 		text-align: right;
 
