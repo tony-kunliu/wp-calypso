@@ -269,6 +269,20 @@ UndocumentedSite.prototype.runThemeSetup = function() {
 };
 
 /**
+ * Requests Store orders stats
+ *
+ * @param {object} query query parameters
+ * @return {Promise} A Promise to resolve when complete.
+ */
+UndocumentedSite.prototype.statsOrders = function( options ) {
+	const { type, ...query } = options;
+	return this.wpcom.req.get( Object.assign( query, {
+		path: `/sites/${ this._id }/stats/orders/${ type }`,
+		apiNamespace: 'wpcom/v2',
+	} ) );
+};
+
+/**
  * Expose `UndocumentedSite` module
  */
 module.exports = UndocumentedSite;
