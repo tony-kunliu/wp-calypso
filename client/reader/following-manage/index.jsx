@@ -166,7 +166,7 @@ class FollowingManage extends Component {
 				<MobileBackToSidebar>
 					<h1>{ translate( 'Manage Followed Sites' ) }</h1>
 				</MobileBackToSidebar>
-				{ ! searchResults && ! isSitesQueryUrl && <QueryReaderFeedsSearch query={ sitesQuery } /> }
+				{ ! searchResults && <QueryReaderFeedsSearch query={ sitesQuery } /> }
 				{ recommendedSites.length <= 2 &&
 					<QueryReaderRecommendedSites seed={ this.state.seed } offset={ this.state.offset } /> }
 				<h2 className="following-manage__header">{ translate( 'Follow Something New' ) }</h2>
@@ -200,7 +200,6 @@ class FollowingManage extends Component {
 				</div>
 				{ ! sitesQuery && <RecommendedSites sites={ take( recommendedSites, 2 ) } /> }
 				{ !! sitesQuery &&
-					! isSitesQueryUrl &&
 					<FollowingManageSearchFeedsResults
 						searchResults={ searchResults }
 						showMoreResults={ showMoreResults }
