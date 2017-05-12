@@ -36,9 +36,7 @@ import { saveSettings } from './state/settings/actions';
 import {
 	getCacheTestResults,
 	isCacheDeleteSuccessful,
-	isCacheTestSuccessful,
 	isDeletingCache,
-	isTestingCache,
 } from './state/cache/selectors';
 import { getNotices } from './state/notices/selectors';
 import {
@@ -84,7 +82,6 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 			}
 
 			this.showCacheDeleteNotice( prevProps );
-			this.showCacheTestNotice( prevProps );
 		}
 
 		updateDirtyFields() {
@@ -134,32 +131,6 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 				this.props.errorNotice(
 					translate( 'There was a problem deleting the cache. Please try again.' ),
 					{ id: 'wpsc-cache-delete' }
-				);
-			}
-		};
-
-		showCacheTestNotice = ( prevProps ) => {
-			if ( this.props.isTesting || ! prevProps.isTesting ) {
-				return;
-			}
-
-			const {
-				isTestSuccessful,
-				site,
-				translate,
-			} = this.props;
-
-			this.props.removeNotice( 'wpsc-settings-save' );
-
-			if ( isTestSuccessful ) {
-				this.props.successNotice(
-					translate( 'Cache test completed successfully on %(site)s.', { args: { site: site && site.title } } ),
-					{ id: 'wpsc-cache-test' }
-				);
-			} else {
-				this.props.errorNotice(
-					translate( 'There was a problem testing the cache. Please try again.' ),
-					{ id: 'wpsc-cache-test' }
 				);
 			}
 		};
@@ -295,8 +266,6 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 			] ) );
 			const isDeleting = isDeletingCache( state, siteId );
 			const isDeleteSuccessful = isCacheDeleteSuccessful( state, siteId );
-			const isTesting = isTestingCache( state, siteId );
-			const isTestSuccessful = isCacheTestSuccessful( state, siteId );
 			const cacheTestResults = getCacheTestResults( state, siteId );
 
 			return {
@@ -306,8 +275,6 @@ const wrapSettingsForm = getFormSettings => SettingsForm => {
 				isRequesting,
 				isSaveSuccessful,
 				isSaving,
-				isTesting,
-				isTestSuccessful,
 				notices,
 				settings,
 				settingsFields,

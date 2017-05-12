@@ -8,8 +8,6 @@ import {
 	WP_SUPER_CACHE_DELETE_CACHE_SUCCESS,
 	WP_SUPER_CACHE_RECEIVE_TEST_CACHE_RESULTS,
 	WP_SUPER_CACHE_TEST_CACHE,
-	WP_SUPER_CACHE_TEST_CACHE_FAILURE,
-	WP_SUPER_CACHE_TEST_CACHE_SUCCESS,
 } from '../action-types';
 
 /**
@@ -28,28 +26,10 @@ export const receiveResults = ( siteId, results ) => ( { type: WP_SUPER_CACHE_RE
  * @returns {Function} Action thunk that tests the cache ror a given site
  */
 export const testCache = ( siteId, httpOnly ) => {
-	return ( dispatch ) => {
-		dispatch( {
-			type: WP_SUPER_CACHE_TEST_CACHE,
-			siteId,
-		} );
-
-		return wp.req.post(
-			{ path: `/jetpack-blogs/${ siteId }/rest-api/` },
-			{ path: '/wp-super-cache/v1/cache/test', body: JSON.stringify( { httponly: httpOnly } ), json: true } )
-			.then( ( { data } ) => {
-				dispatch( receiveResults( siteId, data ) );
-				dispatch( {
-					type: WP_SUPER_CACHE_TEST_CACHE_SUCCESS,
-					siteId,
-				} );
-			} )
-			.catch( () => {
-				dispatch( {
-					type: WP_SUPER_CACHE_TEST_CACHE_FAILURE,
-					siteId,
-				} );
-			} );
+	return {
+		type: WP_SUPER_CACHE_TEST_CACHE,
+		siteId,
+		httpOnly
 	};
 };
 
