@@ -9,6 +9,8 @@ import {
 	WP_SUPER_CACHE_RECEIVE_TEST_CACHE_RESULTS,
 	WP_SUPER_CACHE_TEST_CACHE,
 } from '../action-types';
+// Need to import somewhere so the module registers the handler with the middleware
+import handlers from '../data-layer'; // eslint-disable-line no-unused-vars
 
 /**
  * Returns an action object to be used in signalling that cache test results have been received.
