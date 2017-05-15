@@ -14,6 +14,7 @@ import FormFieldset from 'components/forms/form-fieldset';
 import FormLabel from 'components/forms/form-label';
 import FormTextInput from 'components/forms/form-text-input';
 import FormInputValidation from 'components/forms/form-input-validation';
+import Gridicon from 'gridicons';
 import InfoPopover from 'components/info-popover';
 import ExternalLink from 'components/external-link';
 import { getSelectedSiteId } from 'state/ui/selectors';
@@ -42,11 +43,21 @@ const SpamFilteringSettings = ( {
 	const isInvalidKey = isDirty && hasAkismetKeyError && ! isStoredKey;
 	let validationText,
 		className,
-		header = translate( 'Your site needs an Antispam key.' );
+		header = (
+			<div>
+				<Gridicon icon="notice-outline" />
+				{ translate( 'Your site needs an Antispam key.' ) }
+			</div>
+		);
 	if ( ! inTransition && isValidKey ) {
 		validationText = translate( 'Your Antispam key is valid.' );
 		className = 'is-valid';
-		header = translate( 'Your site is protected from spam.' );
+		header = (
+			<div>
+				<Gridicon icon="checkmark" />
+				{ translate( 'Your site is protected from spam.' ) }
+			</div>
+		);
 	}
 	if ( ! inTransition && isInvalidKey ) {
 		validationText = translate( 'There\'s a problem with your Antispam API key.' );
