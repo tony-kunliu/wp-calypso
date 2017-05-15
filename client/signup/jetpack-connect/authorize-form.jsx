@@ -21,7 +21,6 @@ import {
 import {
 	getAuthorizationData,
 	getAuthorizationRemoteSite,
-	getSSOSessions,
 	isCalypsoStartedConnection,
 	hasXmlrpcError,
 	hasExpiredSecretError,
@@ -67,9 +66,6 @@ class JetpackConnectAuthorizeForm extends Component {
 		selectedPlan: PropTypes.string,
 		siteSlug: PropTypes.string,
 		user: PropTypes.object,
-
-		// FIXME: Is this prop used? Can it be removed completely?
-		jetpackSSOSessions: PropTypes.any,
 	}
 
 	componentWillMount() {
@@ -173,9 +169,6 @@ export default connect(
 			selectedPlan,
 			siteSlug,
 			user: getCurrentUser( state ),
-
-			// FIXME: Is this prop used? Can it be removed completely?
-			jetpackSSOSessions: getSSOSessions( state ),
 		};
 	},
 	{
