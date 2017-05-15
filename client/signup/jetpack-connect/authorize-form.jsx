@@ -111,7 +111,10 @@ class JetpackConnectAuthorizeForm extends Component {
 		return (
 				<div>
 					<CheckoutData>
-						<Plans { ...this.props } showFirst={ true } />
+						<Plans
+							{ ...this.props }
+							showFirst={ true }
+						/>
 					</CheckoutData>
 				</div>
 		);
@@ -120,8 +123,14 @@ class JetpackConnectAuthorizeForm extends Component {
 	renderForm() {
 		return (
 			( this.props.user )
-				? <LoggedInForm { ...this.props } isSSO={ this.isSSO() } />
-				: <LoggedOutForm { ...this.props } isSSO={ this.isSSO() } />
+				? <LoggedInForm
+					{ ...this.props }
+					isSSO={ this.isSSO() }
+				/>
+				: <LoggedOutForm
+					{ ...this.props }
+					isSSO={ this.isSSO() }
+				/>
 		);
 	}
 
