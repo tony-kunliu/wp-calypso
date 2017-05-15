@@ -126,12 +126,8 @@ export default connect(
 	state => {
 		const remoteSiteUrl = getAuthorizationRemoteSite( state );
 		const siteSlug = urlToSlug( remoteSiteUrl );
-		const requestHasXmlrpcError = () => {
-			return hasXmlrpcError( state );
-		};
-		const requestHasExpiredSecretError = () => {
-			return hasExpiredSecretError( state );
-		};
+		const requestHasExpiredSecretError = () => hasExpiredSecretError( state );
+		const requestHasXmlrpcError = () => hasXmlrpcError( state );
 		const selectedPlan = getSiteSelectedPlan( state, siteSlug ) || getGlobalSelectedPlan( state );
 
 		return {
