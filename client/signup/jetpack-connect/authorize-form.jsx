@@ -3,7 +3,6 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { localize } from 'i18n-calypso';
 import cookie from 'cookie';
 
@@ -169,7 +168,7 @@ export default connect(
 			jetpackSSOSessions: getSSOSessions( state ),
 		};
 	},
-	dispatch => bindActionCreators( {
+	{
 		authorize,
 		createAccount,
 		goBackToWpAdmin,
@@ -177,5 +176,5 @@ export default connect(
 		recordTracksEvent,
 		requestSites,
 		retryAuth,
-	}, dispatch )
+	}
 )( localize( JetpackConnectAuthorizeForm ) );
