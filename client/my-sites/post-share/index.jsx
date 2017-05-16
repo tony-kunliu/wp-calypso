@@ -130,7 +130,7 @@ class PostShare extends Component {
 		this.props.sharePost( this.props.siteId, this.props.postId, this.state.skipped, this.state.message );
 	};
 
-	isButtonDisabled() {
+	isSharingPost() {
 		if ( this.props.requesting ) {
 			return true;
 		}
@@ -171,7 +171,8 @@ class PostShare extends Component {
 			className="post-share__button"
 			primary
 			onClick={ this.sharePost }
-			disabled={ this.isButtonDisabled() }
+			disabled={ this.isSharingPost() }
+			busy={ this.isSharingPost() }
 		>
 			{ translate( 'Share post' ) }
 		</Button>;
@@ -195,13 +196,14 @@ class PostShare extends Component {
 					</Button>
 				}
 
-				<ButtonGroup className="post-share__share-combo">
+				<ButtonGroup className="post-share__share-combo" busy>
 					{ shareButton }
 
 					<CalendarButton
 						primary
 						className="post-share__schedule-button"
-						disabled={ this.isButtonDisabled() }
+						disabled={ this.isSharingPost() }
+						busy={ this.isSharingPost() }
 						title={ translate( 'Set date and time' ) }
 						tabIndex={ 3 }
 						siteId={ siteId }
