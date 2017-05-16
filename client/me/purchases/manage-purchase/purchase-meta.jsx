@@ -48,11 +48,9 @@ class PurchaseMeta extends Component {
 		purchaseId: React.PropTypes.oneOfType( [ React.PropTypes.number, React.PropTypes.bool ] )
 			.isRequired,
 		selectedPurchase: React.PropTypes.object,
-		selectedSite: React.PropTypes.oneOfType( [
-			React.PropTypes.object,
-			React.PropTypes.bool,
-			React.PropTypes.undefined,
-		] ),
+		selectedSite: React.PropTypes.oneOfType(
+			[ React.PropTypes.object, React.PropTypes.bool, React.PropTypes.undefined ]
+		),
 	};
 
 	static defaultProps = {

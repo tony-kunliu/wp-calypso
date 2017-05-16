@@ -77,26 +77,39 @@ export default function() {
 
 	// redirect legacy urls
 	page( '/purchases', () => page.redirect( paths.purchasesRoot() ) );
-	page( '/purchases/:siteName/:purchaseId', ( { params: { siteName, purchaseId } } ) =>
-		page.redirect( paths.managePurchase( siteName, purchaseId ) )
-	 );
-	page( '/purchases/:siteName/:purchaseId/cancel', ( { params: { siteName, purchaseId } } ) =>
-		page.redirect( paths.cancelPurchase( siteName, purchaseId ) )
-	 );
-	page( '/purchases/:siteName/:purchaseId/cancel-private-registration', ( {
-		params: { siteName, purchaseId },
-	} ) => page.redirect( paths.cancelPrivacyProtection( siteName, purchaseId ) ) );
-	page( '/purchases/:siteName/:purchaseId/confirm-cancel-domain', ( {
-		params: { siteName, purchaseId },
-	} ) => page.redirect( paths.confirmCancelDomain( siteName, purchaseId ) ) );
-	page( '/purchases/:siteName/:purchaseId/payment/add', ( { params: { siteName, purchaseId } } ) =>
-		page.redirect( paths.addCardDetails( siteName, purchaseId ) )
-	 );
-	page( '/purchases/:siteName/:purchaseId/payment/edit/:cardId', ( {
-		params: { siteName, purchaseId, cardId },
-	} ) => page.redirect( paths.editCardDetails( siteName, purchaseId, cardId ) ) );
+	page(
+		'/purchases/:siteName/:purchaseId',
+		( { params: { siteName, purchaseId } } ) =>
+			page.redirect( paths.managePurchase( siteName, purchaseId ) )
+	);
+	page(
+		'/purchases/:siteName/:purchaseId/cancel',
+		( { params: { siteName, purchaseId } } ) =>
+			page.redirect( paths.cancelPurchase( siteName, purchaseId ) )
+	);
+	page(
+		'/purchases/:siteName/:purchaseId/cancel-private-registration',
+		( { params: { siteName, purchaseId } } ) =>
+			page.redirect( paths.cancelPrivacyProtection( siteName, purchaseId ) )
+	);
+	page(
+		'/purchases/:siteName/:purchaseId/confirm-cancel-domain',
+		( { params: { siteName, purchaseId } } ) =>
+			page.redirect( paths.confirmCancelDomain( siteName, purchaseId ) )
+	);
+	page(
+		'/purchases/:siteName/:purchaseId/payment/add',
+		( { params: { siteName, purchaseId } } ) =>
+			page.redirect( paths.addCardDetails( siteName, purchaseId ) )
+	);
+	page(
+		'/purchases/:siteName/:purchaseId/payment/edit/:cardId',
+		( { params: { siteName, purchaseId, cardId } } ) =>
+			page.redirect( paths.editCardDetails( siteName, purchaseId, cardId ) )
+	);
 	page( '/me/billing', () => page.redirect( paths.billingHistory() ) );
-	page( '/me/billing/:receiptId', ( { params: { receiptId } } ) =>
-		page.redirect( paths.billingHistoryReceipt( receiptId ) )
-	 );
+	page(
+		'/me/billing/:receiptId',
+		( { params: { receiptId } } ) => page.redirect( paths.billingHistoryReceipt( receiptId ) )
+	);
 }

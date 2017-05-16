@@ -29,15 +29,12 @@ class PurchaseNotice extends Component {
 		isDataLoading: React.PropTypes.bool,
 		handleRenew: React.PropTypes.func,
 		selectedPurchase: React.PropTypes.object,
-		selectedSite: React.PropTypes.oneOfType( [
-			React.PropTypes.object,
-			React.PropTypes.bool,
-			React.PropTypes.undefined,
-		] ),
-		editCardDetailsPath: React.PropTypes.oneOfType( [
-			React.PropTypes.string,
-			React.PropTypes.bool,
-		] ),
+		selectedSite: React.PropTypes.oneOfType(
+			[ React.PropTypes.object, React.PropTypes.bool, React.PropTypes.undefined ]
+		),
+		editCardDetailsPath: React.PropTypes.oneOfType(
+			[ React.PropTypes.string, React.PropTypes.bool ]
+		),
 	};
 
 	getExpiringText( purchase ) {

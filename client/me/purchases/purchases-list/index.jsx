@@ -42,16 +42,18 @@ class PurchasesList extends Component {
 		}
 
 		if ( this.props.hasLoadedUserPurchasesFromServer && this.props.purchases.length ) {
-			content = getPurchasesBySite( this.props.purchases, this.props.sites ).map( site => (
-				<PurchasesSite
-					key={ site.id }
-					siteId={ site.id }
-					name={ site.name }
-					domain={ site.domain }
-					slug={ site.slug }
-					purchases={ site.purchases }
-				/>
-			) );
+			content = getPurchasesBySite( this.props.purchases, this.props.sites ).map(
+				site => (
+					<PurchasesSite
+						key={ site.id }
+						siteId={ site.id }
+						name={ site.name }
+						domain={ site.domain }
+						slug={ site.slug }
+						purchases={ site.purchases }
+					/>
+				)
+			);
 		}
 
 		if ( this.props.hasLoadedUserPurchasesFromServer && ! this.props.purchases.length ) {
