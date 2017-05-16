@@ -55,15 +55,6 @@ export default function() {
 		jetpackConnectController.install
 	);
 
-	page( '/jetpack/connect/store', jetpackConnectController.plansLanding );
-	page( '/jetpack/connect/store/:intervalType', jetpackConnectController.plansLanding );
-
-	page( '/jetpack/connect/vaultpress', jetpackConnectController.vaultpressLanding );
-	page( '/jetpack/connect/vaultpress/:intervalType', jetpackConnectController.vaultpressLanding );
-
-	page( '/jetpack/connect/akismet', jetpackConnectController.akismetLanding );
-	page( '/jetpack/connect/akismet/:intervalType', jetpackConnectController.akismetLanding );
-
 	page(
 		'/jetpack/connect/:locale?',
 		jetpackConnectController.redirectWithoutLocaleifLoggedIn,

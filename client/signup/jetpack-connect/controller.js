@@ -72,33 +72,6 @@ const jetpackConnectFirstStep = ( context, type ) => {
 	);
 };
 
-const getPlansLandingPage = ( context, hideFreePlan, path, landingType ) => {
-	const PlansLanding = require( './plans-landing' ),
-		analyticsPageTitle = 'Plans',
-		basePath = route.sectionify( context.path ),
-		analyticsBasePath = basePath + '/:site';
-
-	removeSidebar( context );
-
-	context.store.dispatch( setTitle( i18n.translate( 'Plans', { textOnly: true } ) ) );
-
-	analytics.tracks.recordEvent( 'calypso_plans_view' );
-	analytics.pageView.record( analyticsBasePath, analyticsPageTitle );
-
-	renderWithReduxStore(
-		<PlansLanding
-			context={ context }
-			destinationType={ context.params.destinationType }
-			intervalType={ context.params.intervalType }
-			isLanding={ true }
-			landingType={ landingType }
-			basePlansPath={ path }
-			hideFreePlan={ hideFreePlan } />,
-		document.getElementById( 'primary' ),
-		context.store
-	);
-};
-
 export default {
 	redirectWithoutLocaleifLoggedIn( context, next ) {
 		if ( userModule.get() && i18nUtils.getLocaleFromPath( context.path ) ) {
@@ -223,18 +196,6 @@ export default {
 			document.getElementById( 'primary' ),
 			context.store
 		);
-	},
-
-	vaultpressLanding( context ) {
-		getPlansLandingPage( context, true, '/jetpack/connect/vaultpress', 'vaultpress' );
-	},
-
-	akismetLanding( context ) {
-		getPlansLandingPage( context, true, '/jetpack/connect/akismet', 'akismet' );
-	},
-
-	plansLanding( context ) {
-		getPlansLandingPage( context, false, '/jetpack/connect/store', 'jetpack' );
 	},
 
 	plansSelection( context ) {
