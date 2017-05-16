@@ -157,6 +157,30 @@ describe( 'selectors', () => {
 
 			expect( isRemoteSiteOnSitesList( state ) ).to.be.true;
 		} );
+
+		it( 'should return false if the site is in the sites list, but is not responding', () => {
+			const state = {
+				sites: {
+					items: {
+						12345678: {
+							ID: 12345678,
+							jetpack: true,
+							URL: 'https://wordpress.com/'
+						}
+					}
+				},
+				jetpackConnect: {
+					jetpackConnectAuthorize: {
+						queryObject: {
+							client_id: '12345678',
+						},
+						clientNotResponding: true
+					}
+				}
+			};
+
+			expect( isRemoteSiteOnSitesList( state ) ).to.be.false;
+		} );
 	} );
 
 	describe( '#getAuthorizationRemoteSite()', () => {
