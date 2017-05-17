@@ -9,6 +9,7 @@ import {
 	head,
 	kebabCase,
 	map,
+	noop,
 	omit,
 	reduce,
 } from 'lodash';
@@ -16,8 +17,10 @@ import {
 /**
  * Internal dependencies
  */
+import { localize } from 'i18n-calypso';
 import { CountrySelect, StateSelect, Input, HiddenInput } from 'my-sites/upgrades/components/form';
 import PrivacyProtection from './privacy-protection';
+import ExtraContactInformationFrDialog from './extra-information-fr-dialog';
 import PaymentBox from './payment-box';
 import { cartItems } from 'lib/cart-values';
 import { forDomainRegistrations as countriesListForDomainRegistrations } from 'lib/countries-list';
@@ -33,7 +36,7 @@ import FormPhoneMediaInput from 'components/forms/form-phone-media-input';
 const wpcom = require( 'lib/wp' ).undocumented(),
 	countriesList = countriesListForDomainRegistrations();
 
-export default React.createClass( {
+const DomainDetailsForm = React.createClass( {
 	displayName: 'DomainDetailsForm',
 
 	fieldNames: [
@@ -56,7 +59,8 @@ export default React.createClass( {
 			form: null,
 			isDialogVisible: false,
 			submissionCount: 0,
-			phoneCountryCode: 'US'
+			phoneCountryCode: 'US',
+			registrantExtraInfo: false
 		};
 	},
 
@@ -184,6 +188,12 @@ export default React.createClass( {
 		};
 	},
 
+	needsExtraRegistrantInfo() {
+		// FIXME: Source from API
+		return cartItems.hasTld( this.props.cart, 'fr' ) &&
+			! this.state.registrantExtraInfo;
+	},
+
 	needsFax() {
 		return formState.getFieldValue( this.state.form, 'countryCode' ) === 'NL' && cartItems.hasTld( this.props.cart, 'nl' );
 	},
@@ -193,9 +203,14 @@ export default React.createClass( {
 	},
 
 	renderSubmitButton() {
+		const extraDialogRequired = this.needsExtraRegistrantInfo();
+		const continueText = extraDialogRequired
+			? this.props.translate( 'Continue' )
+			: this.props.translate( 'Continue to Checkout' );
+
 		return (
 			<FormButton className="checkout__domain-details-form-submit-button" onClick={ this.handleSubmitButtonClick }>
-				{ this.translate( 'Continue to Checkout' ) }
+				{ continueText }
 			</FormButton>
 		);
 	},
@@ -212,8 +227,25 @@ export default React.createClass( {
 				onDialogClose={ this.closeDialog }
 				onDialogOpen={ this.openDialog }
 				onDialogSelect={ this.handlePrivacyDialogSelect }
-				isDialogVisible={ this.state.isDialogVisible }
-				productsList={ this.props.productsList }/>
+				isDialogVisible={ this.state.isPrivacyDialogVisible }
+				productsList={ this.props.productsList } />
+		);
+	},
+
+	handleFrSubmit( registrantExtraInfo ) {
+		this.setState( { registrantExtraInfo } );
+		this.closeDialog( 'fr' );
+		this.handleSubmitButtonClick();
+	},
+
+	renderExtraContactInformationFrDialog() {
+		return (
+			<ExtraContactInformationFrDialog
+				disabled={ formState.isSubmitButtonDisabled( this.state.form ) }
+				onSubmit={ this.handleFrSubmit }
+				onClose={ noop }
+				isVisible={ this.state.isFrDialogVisible && this.needsExtraRegistrantInfo() }
+				productsList={ this.props.productsList } />
 		);
 	},
 
@@ -222,18 +254,18 @@ export default React.createClass( {
 			<div>
 				<Input
 					autoFocus
-					label={ this.translate( 'First Name') }
+					label={ this.props.translate( 'First Name' ) }
 					{ ...this.getFieldProps( 'first-name' ) } />
 
-				<Input label={ this.translate( 'Last Name' ) } { ...this.getFieldProps( 'last-name' ) } />
+				<Input label={ this.props.translate( 'Last Name' ) } { ...this.getFieldProps( 'last-name' ) } />
 			</div>
 		);
 	},
 
 	renderOrganizationField() {
 		return <HiddenInput
-			label={ this.translate( 'Organization' ) }
-			text={ this.translate(
+			label={ this.props.translate( 'Organization' ) }
+			text={ this.props.translate(
 				'Registering this domain for a company? + Add Organization Name',
 				'Registering these domains for a company? + Add Organization Name',
 				{
@@ -247,14 +279,14 @@ export default React.createClass( {
 
 	renderEmailField() {
 		return (
-			<Input label={ this.translate( 'Email' ) } { ...this.getFieldProps( 'email' ) } />
+			<Input label={ this.props.translate( 'Email' ) } { ...this.getFieldProps( 'email' ) } />
 		);
 	},
 
 	renderCountryField() {
 		return (
 			<CountrySelect
-				label={ this.translate( 'Country' ) }
+				label={ this.props.translate( 'Country' ) }
 				countriesList={ countriesList }
 				{ ...this.getFieldProps( 'country-code' ) } />
 		);
@@ -262,12 +294,12 @@ export default React.createClass( {
 
 	renderFaxField() {
 		return (
-			<Input label={ this.translate( 'Fax' ) } { ...this.getFieldProps( 'fax' ) } />
+			<Input label={ this.props.translate( 'Fax' ) } { ...this.getFieldProps( 'fax' ) } />
 		);
 	},
 
 	renderPhoneField() {
-		const label = this.translate( 'Phone' );
+		const label = this.props.translate( 'Phone' );
 
 		return (
 			<FormPhoneMediaInput
@@ -282,11 +314,11 @@ export default React.createClass( {
 	renderAddressFields() {
 		return (
 			<div>
-				<Input label={ this.translate( 'Address' ) } maxLength={ 40 } { ...this.getFieldProps( 'address-1' ) }/>
+				<Input label={ this.props.translate( 'Address' ) } maxLength={ 40 } { ...this.getFieldProps( 'address-1' ) } />
 
 				<HiddenInput
-					label={ this.translate( 'Address Line 2' ) }
-					text={ this.translate( '+ Add Address Line 2' ) }
+					label={ this.props.translate( 'Address Line 2' ) }
+					text={ this.props.translate( '+ Add Address Line 2' ) }
 					maxLength={ 40 }
 					{ ...this.getFieldProps( 'address-2' ) } />
 			</div>
@@ -295,7 +327,7 @@ export default React.createClass( {
 
 	renderCityField() {
 		return (
-			<Input label={ this.translate( 'City' ) } { ...this.getFieldProps( 'city' ) } />
+			<Input label={ this.props.translate( 'City' ) } { ...this.getFieldProps( 'city' ) } />
 		);
 	},
 
@@ -303,14 +335,14 @@ export default React.createClass( {
 		const countryCode = formState.getFieldValue( this.state.form, 'countryCode' );
 
 		return <StateSelect
-			label={ this.translate( 'State' ) }
+			label={ this.props.translate( 'State' ) }
 			countryCode={ countryCode }
 			{ ...this.getFieldProps( 'state' ) } />;
 	},
 
 	renderPostalCodeField() {
 		return (
-			<Input label={ this.translate( 'Postal Code' ) } { ...this.getFieldProps( 'postal-code' ) } />
+			<Input label={ this.props.translate( 'Postal Code' ) } { ...this.getFieldProps( 'postal-code' ) } />
 		);
 	},
 
@@ -339,12 +371,12 @@ export default React.createClass( {
 		this.setPrivacyProtectionSubscriptions( ! this.allDomainRegistrationsHavePrivacy() );
 	},
 
-	closeDialog() {
-		this.setState( { isDialogVisible: false } );
+	closeDialog( dialogKey = 'isDialogVisible' ) {
+		this.setState( { [ dialogKey ]: false } );
 	},
 
-	openDialog() {
-		this.setState( { isDialogVisible: true } );
+	openDialog( dialogKey = 'isDialogVisible' ) {
+		this.setState( { [ dialogKey ]: true } );
 	},
 
 	focusFirstError() {
@@ -352,7 +384,12 @@ export default React.createClass( {
 	},
 
 	handleSubmitButtonClick( event ) {
-		event.preventDefault();
+		event && event.preventDefault();
+
+		if ( this.needsExtraRegistrantInfo() ) {
+			this.openDialog( 'isFrDialogVisible' );
+			return;
+		}
 
 		this.formStateController.handleSubmit( ( hasErrors ) => {
 			this.recordSubmit();
@@ -406,8 +443,15 @@ export default React.createClass( {
 	finish( options = {} ) {
 		this.setPrivacyProtectionSubscriptions( options.addPrivacy !== false );
 
-		const allFieldValues = Object.assign( {}, formState.getAllFieldValues( this.state.form ) );
+		const allFieldValues = Object.assign(
+			{},
+			formState.getAllFieldValues( this.state.form ),
+			this.state.registrantExtraInfo
+				? { registrantExtraInfo: this.state.registrantExtraInfo }
+				: {}
+		);
 		allFieldValues.phone = toIcannFormat( allFieldValues.phone, countries[ this.state.phoneCountryCode ] );
+		// TODO: pass extra fr contact details in here
 		setDomainDetails( allFieldValues );
 		addGoogleAppsRegistrationData( allFieldValues );
 	},
@@ -433,14 +477,15 @@ export default React.createClass( {
 
 		let title;
 		if ( needsOnlyGoogleAppsDetails ) {
-			title = this.translate( 'G Suite Account Information', titleOptions );
+			title = this.props.translate( 'G Suite Account Information', titleOptions );
 		} else {
-			title = this.translate( 'Domain Contact Information', titleOptions );
+			title = this.props.translate( 'Domain Contact Information', titleOptions );
 		}
 
 		return (
 			<div>
 				{ cartItems.hasDomainRegistration( this.props.cart ) && this.renderPrivacySection() }
+				{ this.renderExtraContactInformationFrDialog() }
 				<PaymentBox
 					classSet={ classSet }
 					title={ title }>
@@ -450,3 +495,5 @@ export default React.createClass( {
 		);
 	}
 } );
+
+export default localize( DomainDetailsForm );
