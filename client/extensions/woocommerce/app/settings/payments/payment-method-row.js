@@ -22,12 +22,12 @@ const PaymentMethodRow = ( { method, translate } ) => {
 						</p>
 					)
 				}
-				<p>{ method.label }</p>
+				<p>{ method.title }</p>
 			</TableRowField>
 			<TableRowField>
-				<p>{ method.fee }</p>
+				<p>{ method.fees }</p>
 				<p>
-					<a href={ method.information }>
+					<a href={ method.informationUrl }>
 						{ translate( 'More Information' ) }
 					</a>
 				</p>
@@ -45,9 +45,9 @@ const PaymentMethodRow = ( { method, translate } ) => {
 
 PaymentMethodRow.propTypes = {
 	method: PropTypes.shape( {
-		label: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
 		isSuggested: PropTypes.bool.isRequired,
-		fee: PropTypes.string.isRequired,
+		fees: PropTypes.string.isRequired,
 		informationUrl: PropTypes.string.isRequired,
 	} ),
 };

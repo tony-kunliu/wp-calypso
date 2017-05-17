@@ -3,6 +3,8 @@
  */
 import error from './error-reducer';
 import productCategories from './product-categories/reducer';
+import paymentMethods from './settings/payments/reducer';
+
 import {
 	SERIALIZE,
 	DESERIALIZE,
@@ -12,6 +14,7 @@ const initialState = {};
 
 const handlers = {
 	...productCategories,
+	...paymentMethods,
 	...error,
 };
 
@@ -38,4 +41,3 @@ export default function( state = initialState, action ) {
 
 	return state;
 }
-
