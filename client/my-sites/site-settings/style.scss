@@ -334,15 +334,16 @@
 	.foldable-card__header {
 		padding: 24px;
 
-		.gridicons-checkmark {
+		.gridicons-checkmark, .gridicons-notice-outline {
 			margin-right: 4px;
 			vertical-align: bottom;
+		}
+
+		.gridicons-checkmark {
 			color: $alert-green;
 		}
 
 		.gridicons-notice-outline {
-			margin-right: 4px;
-			vertical-align: bottom;
 			color: $alert-red;
 		}
 	}
