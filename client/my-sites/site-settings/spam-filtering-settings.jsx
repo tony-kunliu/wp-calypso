@@ -43,12 +43,7 @@ const SpamFilteringSettings = ( {
 	const isInvalidKey = isDirty && hasAkismetKeyError && ! isStoredKey;
 	let validationText,
 		className,
-		header = (
-			<div>
-				<Gridicon icon="notice-outline" />
-				{ translate( 'Your site needs an Antispam key.' ) }
-			</div>
-		);
+		header = null;
 	if ( ! inTransition && isValidKey ) {
 		validationText = translate( 'Your Antispam key is valid.' );
 		className = 'is-valid';
@@ -62,6 +57,12 @@ const SpamFilteringSettings = ( {
 	if ( ! inTransition && isInvalidKey ) {
 		validationText = translate( 'There\'s a problem with your Antispam API key.' );
 		className = 'is-error';
+		header = (
+			<div>
+				<Gridicon icon="notice-outline" />
+				{ translate( 'Your site needs an Antispam key.' ) }
+			</div>
+		);
 	}
 	return (
 		<FoldableCard header={ header } className="site-settings__spam-filtering site-settings__foldable-card">
