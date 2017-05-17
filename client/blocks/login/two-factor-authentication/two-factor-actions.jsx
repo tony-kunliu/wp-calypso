@@ -34,7 +34,7 @@ class TwoFactorActions extends Component {
 
 		const { userId, translate, twoStepNonce } = this.props;
 
-		page( login( { twoFactorAuthType: 'sms' } ) );
+		page( login( { native: true, twoFactorAuthType: 'sms' } ) );
 
 		this.props.sendSmsCode( userId, twoStepNonce ).then( ( phoneNumber ) => {
 			this.props.successNotice(
@@ -76,13 +76,13 @@ class TwoFactorActions extends Component {
 
 				{ isAuthenticatorSupported && twoFactorAuthType !== 'authenticator' && (
 					<p>
-						<a href={ login( { twoFactorAuthType: 'authenticator' } ) }>{ translate( 'An Authenticator application' ) }</a>
+						<a href={ login( { native: true, twoFactorAuthType: 'authenticator' } ) }>{ translate( 'An Authenticator application' ) }</a>
 					</p>
 				) }
 
 				{ isPushSupported && twoFactorAuthType !== 'push' && (
 					<p>
-						<a href={ login( { twoFactorAuthType: 'push' } ) }>{ translate( 'The WordPress mobile app' ) }</a>
+						<a href={ login( { native: true, twoFactorAuthType: 'push' } ) }>{ translate( 'The WordPress mobile app' ) }</a>
 					</p>
 				) }
 			</Card>
